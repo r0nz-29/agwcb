@@ -1,0 +1,11 @@
+export const GET_LANGS = "GET_LANGS";
+export const GET_LANGS_SUCCESS = "GET_LANGS_SUCCESS";
+export const GET_LANGS_FAIL = "GET_LANGS_FAIL";
+
+export const GET_RANDOM = "GET_RANDOM";
+export const GET_RANDOM_SUCCESS = "GET_RANDOM_SUCCESS";
+export const GET_RANDOM_FAIL = "GET_RANDOM_FAIL";
+
+export const GET_IMAGES = "GET_IMAGES";
+export const GET_IMAGES_SUCCESS = "GET_IMAGES_SUCCESS";
+export const GET_IMAGES_FAIL = "GET_IMAGES_FAIL";
