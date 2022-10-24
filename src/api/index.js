@@ -32,3 +32,14 @@ export  function _getImages(language) {
     console.log(e);
   }
 }
+
+export  function _search(query) {
+  try {
+    return axios.get(process.env.REACT_APP_BASE_URL + `/search/${query}`).then((response) => {
+      return response.data;
+    });
+  } catch (e) {
+    console.log("error: ");
+    console.log(e);
+  }
+}

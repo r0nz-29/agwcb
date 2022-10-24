@@ -5,7 +5,7 @@ import {
   GET_LANGS_SUCCESS,
   GET_RANDOM,
   GET_RANDOM_FAIL,
-  GET_RANDOM_SUCCESS,
+  GET_RANDOM_SUCCESS, GET_SEARCH_RESULTS, GET_SEARCH_RESULTS_FAIL, GET_SEARCH_RESULTS_SUCCESS,
 } from "./actionTypes";
 
 export const getLangs = () => ({
@@ -48,5 +48,20 @@ export const getImagesSuccess = images => ({
 
 export const getImagesFail = err => ({
   type: GET_IMAGES_FAIL,
+  payload: err,
+});
+
+export const getSearchResults = query => ({
+  type: GET_SEARCH_RESULTS,
+  payload: query
+});
+
+export const getSearchResultsSuccess = images => ({
+  type: GET_SEARCH_RESULTS_SUCCESS,
+  payload: images,
+});
+
+export const getSearchResultsFail = err => ({
+  type: GET_SEARCH_RESULTS_FAIL,
   payload: err,
 });

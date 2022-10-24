@@ -14,10 +14,15 @@ export default function Images() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = language;
   }, []);
 
   const {images, fetchingImages} = useSelector(state => state.languages);
 
+  return <ImageGrid images={images} loadingState={fetchingImages} title={language}/>;
+}
+
+export function ImageGrid({title: language, images, loadingState: fetchingImages}) {
   return (
     <Box p={4}>
       <Center>

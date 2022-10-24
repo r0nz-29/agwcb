@@ -1,13 +1,13 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {GET_IMAGES, GET_LANGS, GET_RANDOM} from "./actionTypes";
-import {_getImages, _getLangs, _getRandom} from "../../api";
+import {GET_IMAGES, GET_LANGS, GET_RANDOM, GET_SEARCH_RESULTS} from "./actionTypes";
+import {_getImages, _getLangs, _getRandom, _search} from "../../api";
 import {
   getImagesFail,
   getImagesSuccess,
   getLangsFail,
   getLangsSuccess,
   getRandomFail,
-  getRandomSuccess,
+  getRandomSuccess, getSearchResultsFail, getSearchResultsSuccess,
 } from "./actions";
 
 function* onGetLangs() {
@@ -37,10 +37,20 @@ function* onGetImages({payload: language}) {
   }
 }
 
+function* onGetSearchResults({payload: query}) {
+  try {
+    const results = yield call(_search, query);
+    yield put(getSearchResultsSuccess(results));
+  } catch (err) {
+    yield put(getSearchResultsFail(err));
+  }
+}
+
 function* langsSaga() {
   yield takeEvery(GET_LANGS, onGetLangs);
   yield takeEvery(GET_RANDOM, onGetRandom);
   yield takeEvery(GET_IMAGES, onGetImages);
+  yield takeEvery(GET_SEARCH_RESULTS, onGetSearchResults);
 }
 
 export default langsSaga;

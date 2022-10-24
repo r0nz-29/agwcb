@@ -5,12 +5,14 @@ import {
   GET_LANGS_SUCCESS,
   GET_RANDOM,
   GET_RANDOM_FAIL,
-  GET_RANDOM_SUCCESS,
+  GET_RANDOM_SUCCESS, GET_SEARCH_RESULTS, GET_SEARCH_RESULTS_FAIL, GET_SEARCH_RESULTS_SUCCESS,
 } from "./actionTypes";
 
 const INIT_STATE = {
   languages: [],
   images: [],
+  results: [],
+  searching: false,
   fetchingRandom: false,
   fetchingImages: false,
   processing: false,
@@ -39,11 +41,25 @@ export default function langsReducer(state = INIT_STATE, action) {
         fetchingImages: true,
       };
 
+    case GET_SEARCH_RESULTS:
+      return {
+        ...state,
+        results: [],
+        searching: true,
+      };
+
     case GET_IMAGES_SUCCESS:
       return {
         ...state,
         images: action.payload,
         fetchingImages: false,
+      };
+
+    case GET_SEARCH_RESULTS_SUCCESS:
+      return {
+        ...state,
+        results: action.payload,
+        searching: false,
       };
 
     case GET_LANGS_SUCCESS:
@@ -73,6 +89,13 @@ export default function langsReducer(state = INIT_STATE, action) {
         ...state,
         err: action.payload,
         fetchingRandom: false,
+      }
+
+    case GET_SEARCH_RESULTS_FAIL:
+      return {
+        ...state,
+        err: action.payload,
+        searching: false,
       }
 
     default:
