@@ -11,6 +11,7 @@ import {
 const INIT_STATE = {
   languages: [],
   images: [],
+  fetchingRandom: false,
   fetchingImages: false,
   processing: false,
   randomImage: {},
@@ -20,10 +21,15 @@ const INIT_STATE = {
 export default function langsReducer(state = INIT_STATE, action) {
   switch (action.type) {
     case GET_LANGS:
-    case GET_RANDOM:
       return {
         ...state,
         processing: true,
+      };
+
+    case GET_RANDOM:
+      return {
+        ...state,
+        fetchingRandom: true,
       };
 
     case GET_IMAGES:
@@ -31,14 +37,14 @@ export default function langsReducer(state = INIT_STATE, action) {
         ...state,
         images: [],
         fetchingImages: true,
-      }
+      };
 
     case GET_IMAGES_SUCCESS:
       return {
         ...state,
         images: action.payload,
         fetchingImages: false,
-      }
+      };
 
     case GET_LANGS_SUCCESS:
       return {
@@ -51,16 +57,22 @@ export default function langsReducer(state = INIT_STATE, action) {
       return {
         ...state,
         randomImage: action.payload,
-        processing: false
-      }
+        fetchingRandom: false,
+      };
 
     case GET_LANGS_FAIL:
-    case GET_RANDOM_FAIL:
     case GET_IMAGES_FAIL:
       return {
         ...state,
         err: action.payload,
         processing: false,
+      };
+
+    case GET_RANDOM_FAIL:
+      return {
+        ...state,
+        err: action.payload,
+        fetchingRandom: false,
       }
 
     default:

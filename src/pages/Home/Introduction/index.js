@@ -6,12 +6,14 @@ import {AiFillApi} from "react-icons/ai";
 
 export default function Introduction() {
   const dispatch = useDispatch();
+  let called = false;
 
   useEffect(() => {
-    dispatch(getRandom());
+    if (!called) dispatch(getRandom());
+    called = true;
   }, []);
 
-  const {randomImage, processing} = useSelector(state => state.languages);
+  const {randomImage, fetchingRandom} = useSelector(state => state.languages);
   return (
     // xs sm md lg xl
     <Stack direction={["column-reverse", "column-reverse", "column-reverse", "row"]} justify="space-between"
@@ -43,7 +45,7 @@ export default function Introduction() {
       </VStack>
       <Spacer/>
       {
-        processing ? (
+        fetchingRandom ? (
           <Skeleton>
             <Image src={randomImage?.link} objectFit="cover" height="md" rounded="md"/>
           </Skeleton>
